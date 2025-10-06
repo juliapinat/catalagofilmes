@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cátalogo de Filmes </title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+     
+    <h1>Cátalogo de Filmes</h1>
+
+  <form id="cadastro-filme">
+    <h2>Adicionar Novo Filme</h2>
+    <div>
+        <label for=>"Título do Filme"</label>
+        <input type="text" id="título" required>
+    </div>
+
+    <div>
+        <label for="sinopse">Sinopse:</label>
+        <textarea id="sinopse" required></textarea>
+    </div>
+
+    <button type="submit">Adicionar Filme</button>
+  </form>
+
+ <hr>
+   
+    <h2>Minha Lista de Filmes</h2>
+
+   <div id="lista-filmes">
+      <p>Nenhum filme cadastrado ainda.</p>
+   </div>
+
+   <script>
+      // 1. ARMAZENAMENTO DE DADOS
+      // 2. Array global que irá guardar todos os filmes como objetos.
+      // Ex: [{ título: 'Filme X', sinopse: 'Sinopse Y' }]
+      const catalogo = [];
+
+      // 2. CAPTURA DE ELEMENTOS DO DOM (Document Object Model)
+      // Capturamos os elementos HTML que vamos interagir, usando seus IDs.
+      const form = document.getElementById('cadastro-filme');
+      const listaFilmesContainer = document.getElementById('lista-filmes');
+
+      //----------------------------------------------------------------
+      // FUNÇÃO DE REMOÇÃO
+      //----------------------------------------------------------------
+      /**
+       *Remove um filme do array de dados e do elemento HTML na tela.
+       * @param {number} indice - A posição do filme no array 'catálogo'.
+       * @param {HTMLElement} elementoDOM - O elemento <div> do filme a ser removido da tela.
+       */
+    function removerFilme(indice, elementoDOM) {
+        // A. REMOÇÃO DO ARRAY (Lógica)
+        // splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
+        // isso atualiza o array 'catalogo'.
+        catalogo.splice(indice, 1);
+    }
+   </script>
+
+</body>
+</html>
