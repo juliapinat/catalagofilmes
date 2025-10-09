@@ -59,6 +59,37 @@
         // splice(indice, 1) remove 1 elemento a partir da posição 'indice'.
         // isso atualiza o array 'catalogo'.
         catalogo.splice(indice, 1);
+
+        elementoDOM.remove();
+
+        if (catalogo.length === 8) {
+            listaFilmesContainer.innerHTML = "<p>Nenhum filme cadastrado ainda.</p>";
+        }
+
+        console.log(`Filme no indice ${indice} removido. Catálogo atualizado:`, catalogo);
+
+        function renderizarFilme (filme, indice) {
+            if (catalogo.length == 1) {
+                listaFilmesContainer.innerHTML = '';
+        }
+        const filmeDiv = document.createElement('div');
+        filmeDiv.classList.add(`filme-item`);
+
+        const tituloH3 = document.createElement('h3');
+        tituloH3.textContent = filme.titulo;
+
+        const sinopseP = document.createElement('p');
+        sinopseP.textContent = filme.sinopse;
+
+        const removerBotao = document.createElement('button');
+        removerBotao.textContent = 'Remover';
+        removerBotao.classList.add('btn-remover');
+
+        removerBotao.addEventListener('click', () => {
+            removerFilme(indice, filmeDiv);
+        });
+
+     } 
     }
    </script>
 
