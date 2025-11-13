@@ -44,3 +44,38 @@ async function buscarFilmes(termo) {
     if (!termo) return;
 
     listaFilmesContainer.innerHTML = '<p style="text-align: center; color: gray;">Carregando...</p>';
+
+    try{
+        // Busca na OMDB (o parâmetro 's' serve para busca por termo)
+         const response = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(termo)}&apikey=${OMDB_API_KEY}`);
+         const data = await response.json();
+
+         listaFilmesContainer.innerHTML = ''
+
+         if (data.Response == 'True' && data.Search) {
+            data.Search.forEach(async (filmeBase) => {
+               const filmeDetalhado = await buscarDetalhes(filmeBase.imdbID);
+               if (filmeDetalhado) {
+                listaFilmesContainer.appendChild(criarCardFilme(filmeDetalhado));
+               }
+            });
+    } else {
+        listaFilmesContainer.innerHTML = `<p style="text-align: center;">Nenhum filme encontrado para "${termo}".</p>`;
+    }
+     } catch (error) {
+      console.error("Erro ao buscar filmes:", error);
+      listaFilmesContainer.innerHTML = `<p style="text-align: center; color: red;">Erro na conexão com a API.</p>`;
+     } 
+} 
+
+// Busca na OMDB (O parâmetro 'i' para busca por ID)
+async function buscarDetalhes(imdbID) {
+    try{
+    const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${OMDB_API_KEY}`);
+    const data = await response.json();
+    return data.Response === "True" ? data : null;
+    } catch (error) {
+        console.error("Erro ao buscar detalhes:", error);
+        return null;
+    }
+}
